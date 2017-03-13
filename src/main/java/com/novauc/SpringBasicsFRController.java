@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Controller
 public class SpringBasicsFRController {
 
-    public static ArrayList messagesAL = new ArrayList<>();
+    public static ArrayList<Message> messagesAL = new ArrayList<>();
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(Model model, HttpSession session) {
@@ -29,21 +29,25 @@ public class SpringBasicsFRController {
     @RequestMapping(path = "/add-message", method = RequestMethod.POST)
     public String message(HttpSession session, String enterMessage) {
         session.setAttribute("enterMessage", enterMessage);
-        messagesAL.add(new Message(messagesAL.size()+1, enterMessage));
+        messagesAL.add(new Message(enterMessage));
         System.out.println(messagesAL.size());
+        //System.out.println(messagesAL.get(messagesAL.size()));
         return "redirect:/";
     }
 
     @RequestMapping(path = "/delete-message", method = RequestMethod.POST)
-    public String delete(HttpSession session, String deleteMessage) {
+    public String delete(HttpSession session, int deleteMessage) {
         session.setAttribute("deleteMessage", deleteMessage);
-        Message massage = new Message();
+        Message messenger = null;
         for(Message picker : messagesAL) {
             if (picker.getId() == deleteMessage) {
-                massage = picker;
+                messenger = picker;
+                break;
             }
         }
-        messagesAL.remove(objectOfChoosing);
+        if(messenger != null) {
+            messagesAL.remove(deleteMessage);
+        }
         return "redirect:/";
     }
 }
