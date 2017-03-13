@@ -33,4 +33,17 @@ public class SpringBasicsFRController {
         System.out.println(messagesAL.size());
         return "redirect:/";
     }
+
+    @RequestMapping(path = "/delete-message", method = RequestMethod.POST)
+    public String delete(HttpSession session, String deleteMessage) {
+        session.setAttribute("deleteMessage", deleteMessage);
+        Message massage = new Message();
+        for(Message picker : messagesAL) {
+            if (picker.getId() == deleteMessage) {
+                massage = picker;
+            }
+        }
+        messagesAL.remove(objectOfChoosing);
+        return "redirect:/";
+    }
 }

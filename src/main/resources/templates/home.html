@@ -19,7 +19,7 @@ Messages from {{.}}
 <ol>
 {{name}}
 <form action="/delete" method="post">
-    <input type="hidden"  name="deleteMessage">
+    <input type="hidden" value="{{id}}" name="deleteMessage">
     <button type="submit">Delete</button>
 </form>
 

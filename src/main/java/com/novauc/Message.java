@@ -9,4 +9,6 @@ public class Message {
         this.id = id;
         this.name = name;
     }
+
+    public Message() {}
 }
