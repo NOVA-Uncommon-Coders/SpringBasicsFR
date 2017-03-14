@@ -30,8 +30,6 @@ public class SpringBasicsFRController {
     public String message(HttpSession session, String enterMessage) {
         session.setAttribute("enterMessage", enterMessage);
         messagesAL.add(new Message(enterMessage));
-        System.out.println(messagesAL.size());
-        //System.out.println(messagesAL.get(messagesAL.size()));
         return "redirect:/";
     }
 
@@ -46,8 +44,14 @@ public class SpringBasicsFRController {
             }
         }
         if(messenger != null) {
-            messagesAL.remove(deleteMessage);
+            messagesAL.remove(messenger);
         }
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 }

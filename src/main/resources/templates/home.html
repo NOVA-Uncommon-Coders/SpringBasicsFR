@@ -10,22 +10,27 @@
 {{/name}}
 
 {{#name}}
-Messages from {{.}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
 <form action="/add-message" method="post">
     <input type="text" placeholder="enter your message" name="enterMessage">
     <button type="submit">Submit</button>
 </form>
-{{#modeledMessage}}
+
 <ol>
-{{name}}
-<form action="/delete" method="post">
-    <input type="hidden" value="{{id}}" name="deleteMessage">
-    <button type="submit">Delete</button>
-</form>
-
-
+    {{#modeledMessage}}
+    <li>
+        {{text}}
+        <form action="/delete-message" method="post">
+            <input type="hidden" value="{{id}}" name="deleteMessage">
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+    {{/modeledMessage}}
 </ol>
-{{/modeledMessage}}
+
 {{/name}}
 </body>
 </html>

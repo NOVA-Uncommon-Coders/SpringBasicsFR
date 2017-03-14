@@ -4,11 +4,10 @@ package com.novauc;
 public class Message {
     public static int i = 0;
     private int id;
-    private String name;
+    private String text;
 
-    public Message(String name) {
-        //this.id = id;
-        this.name = name;
+    public Message(String text) {
+        this.text = text;
         id = i++;
     }
 
