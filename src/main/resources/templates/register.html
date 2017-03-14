@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>rettiwT home</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a title="home" href="home.html">Home</a>
+                </li>
+                {{#user}}
+                <li>
+                    <a title="logout" href="logout.html">Logout</a>
+                </li>
+                {{/user}}
+                <li>
+                    <a title="viewAll" href="viewall.html">View All</a>
+                </li>
+                {{^user}}
+                <li>
+                    <form action="/login" method="post">
+                        <input type="text" placeholder="username: " name="userName">
+                        <input type="password" placeholder="password: " name="password">
+                        <button type="submit">login</button>
+                    </form>
+                </li>
+                {{/user}}
+            </ul>
+        </nav>
+        <h1 style="text-align:center;">Register</h1>
+        <div style="text-align:center;">
+            <form action="/register-user" method="post">
+                <input type="text" placeholder="User name:" name="userName">
+                <input type="password" placeholder="password: " name="password">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </body>
+</html>

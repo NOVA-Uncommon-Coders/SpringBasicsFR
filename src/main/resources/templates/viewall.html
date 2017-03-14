@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>rettiwT home</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a title="home" href="home.html">Home</a>
+                </li>
+                {{#user}}
+                <li>
+                    <a title="logout" href="logout.html">Logout</a>
+                </li>
+                {{/user}}
+                <li>
+                    <a title="viewAll" href="viewall.html">View All</a>
+                </li>
+                {{^user}}
+                <li>
+                    <form action="/login" method="post">
+                        <input type="text" placeholder="username: " name="userName">
+                        <input type="password" placeholder="password: " name="password">
+                        <button type="submit">login</button>
+                    </form>
+                </li>
+                {{/user}}
+            </ul>
+        </nav>
+        <h1>All post</h1>
+        <table>
+            <tr>
+                <th>Post ID</th>
+                <th>Message</th>
+                <th>Author ID</th>
+            </tr>
+        {{post}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{message}}</td>
+                <td>{{userId}}</td>
+            </tr>
+        {{/post}}
+        </table>
+    </body>
+</html>

@@ -3,20 +3,21 @@ package com.novauc;
 public class Post {
     String message;
     int id;
-    int user_id;
+    int userId;
+    boolean edit = false;
 
     /***************
      * Constructor
      **************/
 
-    public Post(String message, int id, int user_id) {
+    public Post(String message,  int id, int userId) {
         this.message = message;
         this.id = id;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 
     /***************
-     * Constructor
+     * Getter
      **************/
 
     public String getMessage() {
@@ -27,12 +28,16 @@ public class Post {
         return id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserIdd() {
+        return userId;
+    }
+
+    public boolean isEdit() {
+        return edit;
     }
 
     /***************
-     * Constructor
+     * Setter
      **************/
 
     public void setMessage(String message) {
@@ -43,7 +48,11 @@ public class Post {
         this.id = id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
     }
 }

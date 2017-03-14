@@ -30,8 +30,8 @@ public class Database {
     public void createTables() throws SQLException{
         Connection connection = getConnection();
         Statement statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS users(id IDENTITY, name VARCHAR, password VARCHAR");
-        statement.execute("CREATE TABLE IF NOT EXISTS posts(id IDENTITY, message VARCHAR, user_id INTEGER");
+        statement.execute("CREATE TABLE IF NOT EXISTS users(id IDENTITY, name VARCHAR, password VARCHAR)");
+        statement.execute("CREATE TABLE IF NOT EXISTS posts(id IDENTITY, message VARCHAR, user_id INTEGER)");
     }
 
     /*******************************
@@ -76,21 +76,26 @@ public class Database {
         }
         return users;
     }
-    public boolean verifyUser(String userName, String password) throws SQLException{
+    public int verifyUser(String userName, String password) throws SQLException{
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE name = ?");
         statement.setString(1, userName);
 
         ResultSet results = statement.executeQuery();
         String storedPass = null, storedName = null;
+        int userId = 0;
         while(results.next()){
             storedName = results.getString("name");
             storedPass = results.getString("password");
+            userId = results.getInt("id");
+        }
+        if (storedName == null || storedPass == null){
+            return -1;
         }
         if (storedName.equals(userName) && storedPass.equals(password)){
-            return true;
+            return userId;
         }
-        return false;
+        return -1;
     }
 
     /*******************************

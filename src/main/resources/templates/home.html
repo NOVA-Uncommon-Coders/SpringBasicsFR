@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>rettiwT home</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
-<nav>
-    <ul class="nav">
-        <li>
-            <a title="home" href="home.html">Home</a>
-        </li>
+    <head>
+        <meta charset="UTF-8">
+        <title>rettiwT home</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a title="home" href="home.html">Home</a>
+                </li>
+                {{#user}}
+                    <li>
+                        <a title="logout" href="logout.html">Logout</a>
+                    </li>
+                {{/user}}
+                <li>
+                    <a title="viewAll" href="viewall.html">View All</a>
+                </li>
+                {{^user}}
+                <li>
+                    <a title="register" href="register.html">Register</a>
+                </li>
+                    <li>
+                        <form action="/login" method="post">
+                            <input type="text" placeholder="username: " name="userName">
+                            <input type="password" placeholder="password: " name="password">
+                            <button type="submit">login</button>
+                        </form>
+                    </li>
+                {{/user}}
+            </ul>
+        </nav>
         {{#user}}
-        <li>
-            <a title="logout" href="logout.html">Logout</a>
-        </li>
-        {{/user}}
-        <li>
-            <a title="viewAll" href="viewall.html">View All</a>
-        </li>
-        {{^user}}
-        <li>
-            <form action="/login" method="post">
-                <input type="text" placeholder="username: " name="userName">
-                <input type="password" placeholder="password: " name="password">
-                <button type="submit">login</button>
+            <form action="/add-post" method ="post">
+                <input type="text" placeholder="Message:" name="message"/>
+                <button type="submit">Add!</button>
             </form>
-        </li>
+            <h1>Your post</h1>
+            {{#posts}}
+                <table>
+                    <tr>
+                        <th>Post ID</th>
+                        <th>Message</th>
+                        <th>Author ID</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                    {{^edit}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{message}}</td>
+                            <td>{{userId}}</td>
+                            <td>
+                                <form action="/set-edit" method="post">
+                                    <input type="hidden" value="{{id}}" name="id">
+                                    <button type="submit">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/remove-post" method="post">
+                                    <input type="hidden" value="{{id}}" name="id">
+                                    <button type="submit">remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{/edit}}
+                    {{#edit}}
+                        <tr>
+                            <form action="/edit-post" method="post">
+                                <input type="hidden" value="{{id}}" name="id">
+                                <td>{{id}}</td>
+                                <td><input type="text" value="{{message}}" name="message"></td>
+                                <td>{{author}}</td>
+                                <td><button type="submit">Edit</button></td>
+                            </form>
+                                <td>
+                                    <form method="/remove-post" action="post">
+                                        <input type="hidden" value="{{id}}" name="id">
+                                        <button type="submit">remove</button>
+                                    </form>
+                                </td>
+                            </form>
+                        </tr>
+                    {{/edit}}
+                </table>
+            {{/posts}}
         {{/user}}
-    </ul>
-</nav>
-{{#user}}
-<form action="/add-post" method ="post">
-    <input type="text" placeholder="Message:" name="message"/>
-    <button type="submit">Add!</button>
-</form>
-<h1>Your post</h1>
-<p>{{{post}}}</p>
-{{/user}}
-</body>
+    </body>
 </html>

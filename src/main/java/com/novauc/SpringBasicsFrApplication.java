@@ -13,7 +13,8 @@ public class SpringBasicsFrApplication {
 
 	public static void main(String[] args) throws SQLException{
 		//Server.createWebServer().start();
-		Connection connection = DriverManager.getConnection("jdbc:h2:./main");
+		Database database = Database.getInstance();
+		database.createTables();
 		SpringApplication.run(SpringBasicsFrApplication.class, args);
 	}
 }
