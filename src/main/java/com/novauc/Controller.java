@@ -20,6 +20,10 @@ public abstract class Controller extends Object implements ErrorAttributes, Orde
 
     private final static String ERROR_PATH = "/error";
 
+    public Controller(ErrorAttributes errorAttributes) {
+        this.errorAttributes = errorAttributes;
+    }
+
 
 
     static ArrayList<Message> messages = new ArrayList<>();
