@@ -157,4 +157,15 @@ public class Database {
         statement.setInt(2, id);
         statement.execute();
     }
+    public ArrayList<Post> selectJoinPost() throws SQLException{
+        Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT users.name, posts.message, posts.id FROM posts JOIN users ON posts.user_id = users.id");
+
+        ResultSet results = statement.executeQuery();
+        ArrayList<Post> posts = new ArrayList<>();
+        while(results.next()){
+            posts.add(new Post(results.getString("message"), results.getInt("id"), results.getString("name")));
+        }
+        return posts;
+    }
 }

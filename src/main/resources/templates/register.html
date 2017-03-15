@@ -3,40 +3,49 @@
     <head>
         <meta charset="UTF-8">
         <title>rettiwT home</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="styles.css" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a title="home" href="home.html">Home</a>
-                </li>
-                {{#user}}
-                <li>
-                    <a title="logout" href="logout.html">Logout</a>
-                </li>
-                {{/user}}
-                <li>
-                    <a title="viewAll" href="viewall.html">View All</a>
-                </li>
-                {{^user}}
-                <li>
-                    <form action="/login" method="post">
-                        <input type="text" placeholder="username: " name="userName">
-                        <input type="password" placeholder="password: " name="password">
-                        <button type="submit">login</button>
-                    </form>
-                </li>
-                {{/user}}
-            </ul>
-        </nav>
-        <h1 style="text-align:center;">Register</h1>
-        <div style="text-align:center;">
-            <form action="/register-user" method="post">
-                <input type="text" placeholder="User name:" name="userName">
-                <input type="password" placeholder="password: " name="password">
-                <button type="submit">Register</button>
-            </form>
+        <header>
+            <nav>
+                <ul class="nav row">
+                    <li class="col-xs-2">
+                        <a title="home" href="home.html">Home</a>
+                    </li>
+                    {{#user}}
+                    <li class="col-xs-2">
+                        <a title="logout" href="logout.html">Logout</a>
+                    </li>
+                    {{/user}}
+                    <li class="col-xs-2">
+                        <a title="viewAll" href="viewall.html">View All</a>
+                    </li>
+                    {{^user}}
+                    <li class="col-xs-2">
+                        <a title="register" href="register.html">Register</a>
+                    </li>
+                    <li class="col-xs-6">
+                        <form action="/login" method="post">
+                            <input type="text" placeholder="username: " name="userName">
+                            <input type="password" placeholder="password: " name="password">
+                            <button type="submit">login</button>
+                        </form>
+                    </li>
+                    {{/user}}
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            <h1 style="text-align:center;">Register</h1>
+            <div style="text-align:center;">
+                <form action="/register-user" method="post">
+                    <input type="text" placeholder="User name:" name="userName">
+                    <input type="password" placeholder="password: " name="password">
+                    <button type="submit">Register</button>
+                </form>
+            </div>
         </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </body>
 </html>

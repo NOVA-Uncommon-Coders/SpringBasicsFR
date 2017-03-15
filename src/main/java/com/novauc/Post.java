@@ -2,6 +2,7 @@ package com.novauc;
 
 public class Post {
     String message;
+    String author;
     int id;
     int userId;
     boolean edit = false;
@@ -14,6 +15,11 @@ public class Post {
         this.message = message;
         this.id = id;
         this.userId = userId;
+    }
+    public Post(String message, int id, String author){
+        this.message = message;
+        this.id = id;
+        this.author = author;
     }
 
     /***************
