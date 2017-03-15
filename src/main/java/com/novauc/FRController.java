@@ -9,31 +9,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class FRController {
     Database database = Database.getInstance();
-//    @RequestMapping(path = "/person", method = RequestMethod.GET)
-//    public String person(Model model, String name, String city, int age) {
-//       // Person p = new Person(name, city, age);
-//        model.addAttribute("user", );
-//        return "person";
-//    }
+
+    /***********************
+     * GET routes
+     ***********************/
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
         model.addAttribute("user", session.getAttribute("user"));
         return "home";
-    }
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login(HttpSession session, String userName, String password) {
-        try {
-            int id = database.verifyUser(userName, password);
-            if (id >= 0){
-                session.setAttribute("user", database.selectUser(id));
-                return "redirect:/";
-            } else {
-                return "redirect:/register";
-            }
-        } catch (Exception e){
-            System.out.println("Huston had a problem during login. Message @" + e.getMessage());
-            return "redirect:/";
-        }
     }
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String register(Model model, HttpSession session) {
@@ -43,21 +27,6 @@ public class FRController {
             return "home";
         }
         return "register";
-    }
-    @RequestMapping(path ="/register-user", method = RequestMethod.POST)
-    public String register(HttpSession session, String userName, String password){
-        try {
-            if (database.insertUser(userName, password)){
-                int id = database.verifyUser(userName, password);
-                session.setAttribute("user", database.selectUser(id));
-                return "redirect:/";
-            } else {
-                return "redirect:/register";
-            }
-        } catch (Exception e){
-            System.out.println("Huston had a problem during registration. Message @" + e.getMessage());
-            return "redirect:/register";
-        }
     }
     @RequestMapping(path="/home", method = RequestMethod.GET)
     public String home(Model model, HttpSession session){
@@ -93,6 +62,41 @@ public class FRController {
     public String logout(Model model, HttpSession session){
         session.invalidate();
         return "home";
+    }
+
+    /***********************
+     * POST routes
+     ***********************/
+
+    @RequestMapping(path ="/register-user", method = RequestMethod.POST)
+    public String register(HttpSession session, String userName, String password){
+        try {
+            if (database.insertUser(userName, password)){
+                int id = database.verifyUser(userName, password);
+                session.setAttribute("user", database.selectUser(id));
+                return "redirect:/";
+            } else {
+                return "redirect:/register";
+            }
+        } catch (Exception e){
+            System.out.println("Huston had a problem during registration. Message @" + e.getMessage());
+            return "redirect:/register";
+        }
+    }
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public String login(HttpSession session, String userName, String password) {
+        try {
+            int id = database.verifyUser(userName, password);
+            if (id >= 0){
+                session.setAttribute("user", database.selectUser(id));
+                return "redirect:/";
+            } else {
+                return "redirect:/register";
+            }
+        } catch (Exception e){
+            System.out.println("Huston had a problem during login. Message @" + e.getMessage());
+            return "redirect:/";
+        }
     }
     @RequestMapping(path="/add-post", method=RequestMethod.POST)
     public String addPost(HttpSession session, String message){
