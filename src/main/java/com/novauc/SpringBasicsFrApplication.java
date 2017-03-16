@@ -8,5 +8,7 @@ public class SpringBasicsFrApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBasicsFrApplication.class, args);
+
+
 	}
 }
