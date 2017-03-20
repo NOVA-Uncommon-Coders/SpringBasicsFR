@@ -8,21 +8,29 @@
     <button type="submit">Login</button>
 </form>
 {{/name}}
-
+{{#name}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+<br/><br/>
 <form action="/add-messages" method="post">
-    <input type="text" placeholder="Enter message" name="message"/>
-    <button type="submit">Submut</button>
+    <input type="text" placeholder="Enter message" name="userMessage"/>
+    <button type="submit">Add Message</button>
+</form>
     <ol>
+        {{#text}}
         <li>
-        {{#messages}}
-        {{/messages}}
+            {{name}}
+            <form action="/delete-messages" method="post">
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">Delete</button>
+        </form>
+        {{/text}}
         </li>
     </ol>
-</form>
-<form action="/delete-messages" method="post">
-    <input type="hidden" placeholder="{{id}}" name="deleteMessage"/>
-    <button type="submit">Submit</button>
-</form>
+
+
+{{/name}}
 </body>
 </html>
 
