@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by jerieshasmith on 3/13/17.
@@ -18,8 +19,8 @@ import java.util.Iterator;
 
 public class MessageController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) {
-        model.addAttribute("name", session.getAttribute("userName"));
+    public String home(Model model, String message) {
+        model.addAttribute("messages",message);
         return "home";
     }
 
@@ -33,25 +34,26 @@ public class MessageController {
 
 ArrayList<Message> messages = new ArrayList<>();
     @RequestMapping(path = "/add-message", method = RequestMethod.POST)
-    public String addMessage(HttpSession session, String message){
-        session.setAttribute("messageText", message);
+    public String addMessage(Model model,HttpSession session, String message){
+        model.addAttribute("messageText", message);
         messages.add(new Message(message));
         return "redirect:/";
 
     }
 
 @RequestMapping(path = "/delete-message", method = RequestMethod.POST)
-    public String delete(HttpSession session,int deleteMessage){
-        session.setAttribute("deleteMessage",deleteMessage);
+    public String delete(int id){
         messages.remove( -1);
         return"redirect:/";
 }
 
 @RequestMapping(path = "/edit-message", method = RequestMethod.POST)
-    public String editMessage(HttpSession session,int editMessage){
-        session.setAttribute("editMessage",editMessage);
-        Message message = new Message();
-        messages.add(new Message(message.getText()));
+    public String editMessage(Integer id, String message){
+        int mess = Integer.valueOf(id);
+        Message m = messages.get(mess);
+        messages.add(m);
+
+
         return "redirect:/";
 }
 
