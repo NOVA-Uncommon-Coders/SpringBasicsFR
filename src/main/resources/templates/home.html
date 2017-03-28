@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>rettiwT home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!--<link type="text/css" rel="stylesheet"  href="/styles.css">-->
+
+    </head>
+    <body>
+        <header>
+            <nav >
+                <ul class="nav row">
+                    <li class="col-xs-2">
+                        <a title="home" href="home.html">Home</a>
+                    </li>
+                    {{#user}}
+                        <li class="col-xs-2">
+                            <a title="logout" href="logout.html">Logout</a>
+                        </li>
+                    {{/user}}
+                    <li class="col-xs-2">
+                        <a title="viewAll" href="viewall.html">View All</a>
+                    </li>
+                    {{^user}}
+                    <li class="col-xs-2">
+                        <a title="register" href="register.html">Register</a>
+                    </li>
+                        <li class="col-xs-6">
+                            <form action="/login" method="post">
+                                <input type="text" placeholder="username: " name="userName">
+                                <input type="password" placeholder="password: " name="password">
+                                <button type="submit">login</button>
+                            </form>
+                        </li>
+                    {{/user}}
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            {{#user}}
+                <h1>Your post</h1>
+                <br/>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Post ID</th>
+                            <th>Message</th>
+                            <th>Author ID</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#posts}}
+                        {{^edit}}
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{message}}</td>
+                                <td>{{userId}}</td>
+                                <td>
+                                    <form action="/set-edit" method="post">
+                                        <input type="hidden" value="{{id}}" name="id">
+                                        <button type="submit" class="btn btn-warning">Edit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/remove-post" method="post">
+                                        <input type="hidden" value="{{id}}" name="id">
+                                        <button type="submit" class="btn btn-danger">remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {{/edit}}
+                        {{#edit}}
+                            <tr>
+                                <form action="/edit-post" method="post">
+                                    <input type="hidden" value="{{id}}" name="id">
+                                    <td>{{id}}</td>
+                                    <td><input type="text" value="{{message}}" class="form-control" name="message"></td>
+                                    <td>{{userId}}</td>
+                                    <td><button type="submit" class="btn btn-warning">Edit</button></td>
+                                </form>
+                                <td>
+                                    <form action="/remove-post" method="post">
+                                        <input type="hidden" value="{{id}}" name="id">
+                                        <button type="submit" class="btn btn-danger">remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {{/edit}}
+                        {{/posts}}
+                    </tbody>
+                </table>
+                <hr/>
+                <br/>
+                <form action="/add-post" method ="post">
+                    <input type="text" placeholder="Message:" name="message"/>
+                    <button type="submit" class="btn btn-success">Add!</button>
+                </form>
+
+            {{/user}}
+        </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
+</html>
