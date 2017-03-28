@@ -1,0 +1,53 @@
+<html>
+<body>
+{{#name}}Hello, {{.}}!{{/name}} Enter your messages below with the "Submit Message" button and delete them with the "Delete Message" button below each message.<br>
+
+
+
+
+{{^name}}
+<form action="/login" method="post">
+   <input type="text" placeholder="Enter your name" name="userName"/>
+   <button type="submit">Login</button>
+</form>
+{{/name}}
+
+
+
+
+
+{{#name}}
+<form action="/logout" method="post">
+   <button type="submit">Logout</button>
+</form>
+
+
+
+
+
+<form action="/addmessage" method="post">
+   <input type="text" placeholder="enter your message" name="enterMessage">
+   <button type="submit">Submit Message</button>
+</form>
+
+
+
+
+<ol>
+   {{#modeledMessage}}
+   <li>
+       {{text}}
+       <form action="/deletemessage" method="post">
+           <input type="hidden" value="{{id}}" name="deleteMessage">
+           <button type="submit">Delete Message</button>
+       </form>
+   </li>
+   {{/modeledMessage}}
+</ol>
+
+
+
+
+{{/name}}
+</body>
+</html>
