@@ -16,7 +16,7 @@ public class Message {
     }
 
     public static void setI(int i) {
-        Message.i = i;
+        i = i;
     }
 
     public int getId() {
@@ -36,7 +36,7 @@ public class Message {
     }
 
     public Message(String text){
-        this.id = Message.i++;
+        this.id = i++;
         this.text = text;
 
 

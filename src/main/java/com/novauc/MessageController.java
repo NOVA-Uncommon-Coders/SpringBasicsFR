@@ -18,12 +18,13 @@ import java.util.List;
 @Controller
 
 public class MessageController {
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, String message) {
-        model.addAttribute("messages",message);
+    public String home(Model model, HttpSession session , String text) {
+        model.addAttribute("name", session.getAttribute("userName"));
+        model.addAttribute("messages",session.getAttribute("messageText"));
         return "home";
     }
-
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(HttpSession session, String userName) {
@@ -32,18 +33,25 @@ public class MessageController {
     }
 
 
-ArrayList<Message> messages = new ArrayList<>();
+  ArrayList<Message> messages = new ArrayList<>();
     @RequestMapping(path = "/add-message", method = RequestMethod.POST)
-    public String addMessage(Model model,HttpSession session, String message){
-        model.addAttribute("messageText", message);
-        messages.add(new Message(message));
+    public String addMessage(Model model,HttpSession session, String text){
+        model.addAttribute("messageText", text);
+        messages.add(new Message(text));
         return "redirect:/";
 
     }
 
 @RequestMapping(path = "/delete-message", method = RequestMethod.POST)
     public String delete(int id){
-        messages.remove( -1);
+        Message removeMessage = new Message();
+    for (int i = 0; i < messages.size(); i++) {
+        if(messages.get(i).getId() == i) {
+            removeMessage = messages.remove(i);
+        }
+    }
+
+        messages.remove(removeMessage);
         return"redirect:/";
 }
 
