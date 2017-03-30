@@ -22,8 +22,8 @@
 <ol>
     {{#message}}
     <li>{{text}}<form action="/delete" method="post">
-        <input type="hidden" value="{{id}}" name="delete-message"/>
-        <button type="submit">Delete Message</button>
+        <input type="hidden" value="{{id}}" name="deletedMessage"/>
+        <button type="submit">Delete</button>
         <br>
     </form></li>
     {{/message}}

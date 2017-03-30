@@ -38,14 +38,16 @@ public class SpringBasicsFrController {
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
-    public void deleteMessage(HttpSession session, int deletedMessage) {
-        //session.setAttribute("delete-message", deletedMessage);
-        for(Message m = )
-           if (deletedMessage == m.getId()) {
-
-           }
-            messagelist.remove(message);
-        return "redirect:/";
+    public String deleteMessage(HttpSession session, Integer deletedMessage) {
+        session.setAttribute("deletedMessage", deletedMessage);
+        Message tempMess = new Message();
+        for(Message m : messagelist) {
+            if (deletedMessage == m.getId()) {
+                tempMess = m;
+            }
+        }
+            messagelist.remove(tempMess);
+            return "redirect:/";
     }
 
 }
