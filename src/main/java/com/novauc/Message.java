@@ -1,6 +1,6 @@
 package com.novauc;
 
-import javax.persistence.Entity;
+//import javax.persistence.Entity;
 
 /**
  * Created by vtcurry on 4/12/17.

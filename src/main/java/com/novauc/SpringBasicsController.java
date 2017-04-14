@@ -4,9 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import spark.ModelAndView;
-import spark.Spark;
-import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
